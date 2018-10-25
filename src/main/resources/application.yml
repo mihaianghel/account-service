@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: account-service
+  h2:
+    console:
+      enabled: true
+
+server:
+  servlet:
+    contextPath: /accounts
+
+logging:
+  level:
+    root: INFO
+  file: ./logs/${spring.application.name}-server.log # Server logs
+  accesslog:
+    pattern: '%h %l %u [%t] "%r" %s %b "Referer: %i{Referer}" "X-Forwarded-For: %i{X-Forwarded-For}" "User-Agent: %i{User-Agent}"'
+    file: ./logs/${spring.application.name}-access.log # Access logs
