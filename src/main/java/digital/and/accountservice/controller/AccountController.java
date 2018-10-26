@@ -10,8 +10,11 @@ import digital.and.accountservice.util.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @RestController
 public class AccountController {
@@ -27,10 +30,13 @@ public class AccountController {
     @Autowired
     private Mapper mapper;
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public AccountDto getAccount(@PathVariable("id") Long id) {
+    @GetMapping(value = "/accounts/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public AccountDto getAccount(@PathVariable("id") Long id,
+                                 @RequestParam(value = "t", required = false) @DateTimeFormat(pattern = "dd.MM.yyyy-HH:mm:ss") LocalDateTime dt) {
 
-        Account account = accountService.getAccountState(id);
+        LocalDateTime dateTime = (dt == null) ? LocalDateTime.now() : dt;
+
+        Account account = accountService.getAccountState(id, dateTime);
 
         return mapper.transformAccountToAccountDto(account);
     }

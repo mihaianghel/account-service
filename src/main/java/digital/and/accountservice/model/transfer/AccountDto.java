@@ -1,5 +1,6 @@
 package digital.and.accountservice.model.transfer;
 
+import digital.and.accountservice.util.Status;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,5 +10,6 @@ public class AccountDto {
 
     private Long accountId;
     private String owner;
-    private Integer balance;
+    private int balance;
+    private Status status;
 }

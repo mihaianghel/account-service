@@ -7,6 +7,7 @@ import digital.and.accountservice.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Service
@@ -16,11 +17,11 @@ public class AccountServiceImpl implements AccountService {
     private EventService eventService;
 
     @Override
-    public Account getAccountState(Long accountId) {
+    public Account getAccountState(Long accountId, LocalDateTime dateTime) {
 
         Account account = Account.createAccount();
 
-        Collection<Event> events = eventService.getEvents(accountId);
+        Collection<Event> events = eventService.getEvents(accountId, dateTime);
 
         events.stream()
                 .forEach(event -> {
@@ -38,7 +39,9 @@ public class AccountServiceImpl implements AccountService {
                         case WITHDRAWAL_PERFORMED:
                             account.performWithdrawal(event.getAmount());
                             return;
-                        default: return;
+                        case BANK_ACCOUNT_CLOSED:
+                            account.closeAccount();
+                            break;
                     }
                 });
 

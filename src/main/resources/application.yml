@@ -4,10 +4,9 @@ spring:
   h2:
     console:
       enabled: true
-
-server:
-  servlet:
-    contextPath: /accounts
+      settings:
+        web-allow-others: true
+        tcp-allow-others: true
 
 logging:
   level:

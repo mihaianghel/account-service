@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -26,12 +26,15 @@ public class EventDao {
     @Column(name = "ACCOUNT_ID", nullable = false)
     private Long accountId;
 
-    @Column(name = "OWNER", nullable = false)
+    @Column(name = "OWNER")
     private String owner;
 
-    @Column(name = "AMOUNT", nullable = false)
-    private Integer amount;
+    @Column(name = "AMOUNT")
+    private int amount;
 
     @Column(name = "EVENT_DATE", nullable = false)
-    private Date eventDate;
+    private LocalDateTime eventDate;
+
+    @Column(name = "NOTES")
+    private String notes;
 }
